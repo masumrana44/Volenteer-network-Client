@@ -4,6 +4,7 @@ import { FaGoogle,   } from "react-icons/fa";
 import './Login.css'
 import { useContext } from "react";
 import { UserContext } from "../AuthContext/AuthContext";
+import { toast } from "react-hot-toast";
  
 
 const Login = () => {
@@ -12,6 +13,8 @@ const Login = () => {
       LoginWithGoogle()
       .then((result)=>{
         const user=result.user;
+        toast.success(`Login Successful. Wellcome Dear ${user?.displayName}`)
+       
         console.log(user);
       })
       .catch(err=>console.log(err));
