@@ -1,0 +1,30 @@
+.events-container{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    place-items: center;
+    padding:5% 15%;
+    gap:30px 0px;
+}
+.events-container a{
+    text-decoration: none;
+}
+
+.event-card{
+    width: 300px;
+    height: 320px;
+    color:white;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #3f90fc;
+    transition: ease-in-out;
+    transition-duration: 400ms;
+}
+
+.event-card:hover{
+    background-color: #421fcf;
+}
+
+.event-card img{
+    width: 100%;
+    height: 80%;
+}

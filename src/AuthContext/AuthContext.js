@@ -11,6 +11,7 @@ import app from "../Firebase/Firebase.config";
 export const UserContext = createContext();
 const AuthContext = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading,setLoading]=useState(true);
   const auth = getAuth(app);
 
   //   Login With Google
@@ -35,7 +36,7 @@ const AuthContext = ({ children }) => {
     };
   }, []);
 
-  const authInfo = { user, LoginWithGoogle,logOuting };
+  const authInfo = { user, LoginWithGoogle,logOuting ,isLoading,setLoading};
   return (
     <div>
       <UserContext.Provider value={authInfo}>{children}</UserContext.Provider>

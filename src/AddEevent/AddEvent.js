@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import "./AddEvent.css";
 import { UserContext } from "../AuthContext/AuthContext";
+import { toast } from "react-hot-toast";
 
 const AddEvent = () => {
   const { user } = useContext(UserContext);
@@ -14,6 +15,7 @@ const AddEvent = () => {
     const eventPhotoURL = form.eventPhotoURL.value;
 
     const eventData = {
+      userEmail: user?.email,
       eventTitle: eventTitle,
       eventDate: eventDate,
       eventLocation: eventLocation,
@@ -21,14 +23,24 @@ const AddEvent = () => {
       evetDescription: evetDescription,
     };
 
-    console.log(eventData)
-    // console.log(
-    //   eventDate,
-    //   eventTitle,
-    //   evetDescription,
-    //   eventLocation,
-    //   eventPhotoURL
-    // );
+    console.log(eventData);
+
+    fetch(`http://localhost:5000/add/event`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(eventData),
+    })
+      .then((res) => res.json)
+      .then((data) => {
+        console.log(data)
+        if (data) {
+          form.reset();
+          toast.success("Your event has succesfully submited");
+          
+        }
+      });
   };
   return (
     <form class="event-form">

@@ -1,0 +1,44 @@
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 5% auto;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  td img {
+    max-width: 100%;
+  }
+  
+
+  .table-row img{
+    width: 100px;
+    height:100px;
+  }
+
+  .trash-icon{
+    font-size: 2rem;
+
+  }
+
+  .trash-icon:hover{
+     color:red;
+    cursor: pointer;
+  }
+
+  .donate-amount{
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  
+  
