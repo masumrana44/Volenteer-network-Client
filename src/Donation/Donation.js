@@ -5,11 +5,10 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 
 const Donation = () => {
-  const { user } = useContext(UserContext);
+  const { user,isLoading,setLoading} = useContext(UserContext);
   const [donates, setDonates] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  console.log(donates)
 
+  
   const handleDelete = (donate) => {
     fetch(`http://localhost:5000/delete/donation/${donate?._id}`, {
       method: "DELETE",
@@ -24,11 +23,15 @@ const Donation = () => {
           toast.success(` Delete Successfully done`);
         }
       });
-    // console.log(donate._id)
+     
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/donation?email=${user?.email}`)
+    fetch(`http://localhost:5000/donation?email=${user?.email}`,{
+        headers:{
+             authorization:`Bearer ${localStorage.getItem('token')}`
+        }
+    })
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);

@@ -9,13 +9,28 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-   
 
   const { LoginWithGoogle } = useContext(UserContext);
   const handleGoogleLogin = () => {
     LoginWithGoogle()
       .then((result) => {
         const user = result.user;
+        const email = result.user.email;
+        fetch(`http://localhost:5000/jwt`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+             const token=data.token;
+            //  localStorage is the easiest but not the  best place to store jwt token 
+            localStorage.setItem('token',token)
+          })
+          .catch((err) => console.log(err));
+
         navigate(from, { replace: true });
         toast.success(`Login Successful. Wellcome Dear ${user?.displayName}`);
       })
