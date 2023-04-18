@@ -5,7 +5,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 
 const Donation = () => {
-  const { user,isLoading,setLoading} = useContext(UserContext);
+  const { user,isLoading,setLoading,logOuting} = useContext(UserContext);
   const [donates, setDonates] = useState([]);
 
   
@@ -13,7 +13,9 @@ const Donation = () => {
     fetch(`http://localhost:5000/delete/donation/${donate?._id}`, {
       method: "DELETE",
     })
-      .then((res) => res.json())
+      .then((res) =>{
+        return res.json()
+      })
       .then((data) => {
         if (data.acknowledged) {
           const remaingDonate = donates?.filter(
@@ -32,7 +34,15 @@ const Donation = () => {
              authorization:`Bearer ${localStorage.getItem('token')}`
         }
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if(res.status===401  || res.status===403){
+            toast.error('Unauthorized Access.Please try to login again.')
+          return  logOuting()
+            .then()
+            .catch(err=>console.log(err))
+        }
+        return res.json()
+      })
       .then((data) => {
         setLoading(false);
         setDonates(data)
